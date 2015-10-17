@@ -5,8 +5,11 @@
  */
 package controller;
 
+import DAO.Impl.UserDAOImpl;
+import DAO.UserDAO;
 import java.sql.SQLException;
 import java.util.Collection;
+import model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +24,6 @@ public class MainController {
     MainController mainController;
 
     public MainController() {
-    
     }
     
     public MainController(MainController mainController) {
@@ -31,7 +33,22 @@ public class MainController {
     public ModelAndView login(Model model) throws SQLException{
         ModelAndView mv;
         mv = new ModelAndView("login");
+        UserDAO modul=new UserDAOImpl();
+        mv.addObject("list",   modul.getAll().size());
         return mv;
     }
-    
+    @RequestMapping("/list.htm")
+    public ModelAndView list(Model model) throws SQLException{
+        ModelAndView mv;
+        mv = new ModelAndView("list");
+        UserDAO modul=new UserDAOImpl();
+        mv.addObject("list",   modul.getAll().size());
+        return mv;
+    }
+    @RequestMapping("/registrate.htm")
+    public ModelAndView registrate(User model)throws SQLException{
+            ModelAndView mv=new ModelAndView("registrate");
+            return mv;
+            
+    }
 }

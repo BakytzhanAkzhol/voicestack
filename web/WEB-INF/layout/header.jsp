@@ -1,17 +1,43 @@
-<%-- 
-    Document   : header
-    Created on : 16.10.2015, 22:43:17
-    Author     : bako
---%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-
-        <link href="<c:url value='/resource/material.min.css' />" rel="stylesheet">
-        <link href="<c:url value='/resource/ripples.min.css' />" rel="stylesheet">
-        <link href="<c:url value='/resource/roboto.min.css' />" rel="stylesheet">
+        <title></title>
+        <link  type="text/css" href="<c:url value="/res/css/bootstrap.min.css"/>" rel="stylesheet">
+        <link  type="text/css" href="<c:url value="/res/css/material-fullpalette.min.css"/>" rel="stylesheet">
+        <link  type="text/css" href="<c:url value="/res/css/ripples.min.css"/>" rel="stylesheet">
+        <link  type="text/css" href="<c:url value="/res/css/roboto.css" />" rel="stylesheet">
+        <link  type="text/css" href="<c:url value="/res/css/nouislider.min.css" />" rel="stylesheet">
+        <link href="//fezvrasta.github.io/snackbarjs/dist/snackbar.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
+    
+    <body>
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="javascript:void(0)">Brand</a>
+            </div>
+            <div class="navbar-collapse collapse navbar-responsive-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="javascript:void(0)">Main</a></li>
+                    <li><a href="javascript:void(0)">Popular answers</a></li>
+                    <li class="dropdown">
+                        <a href="bootstrap-elements.html" data-target="#" class="dropdown-toggle" data-toggle="dropdown">Settings<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="javascript:void(0)">Profile</a></li>
+                            <li><a href="javascript:void(0)">Settings</a></li>
+                            <li><a href="javascript:void(0)">Helps</a></li>
+                            <li class="divider"></li>
+                            <li><a href="javascript:void(0)">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
