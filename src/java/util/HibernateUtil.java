@@ -5,7 +5,9 @@
  */
 package util;
 
+import model.User;
 import org.hibernate.SessionFactory;
+import org.hibernate.Session;
 import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
@@ -20,10 +22,11 @@ public class HibernateUtil {
     private static SessionFactory sessionFactory = buildSessionFactory();
 
     private static SessionFactory buildSessionFactory() {
-        
+
         try {
             if (sessionFactory == null) {
                 Configuration configuration = new Configuration().configure();
+                configuration.addAnnotatedClass(User.class);
                 StandardServiceRegistryBuilder builder = new StandardServiceRegistryBuilder().
                         applySettings(configuration.getProperties());
                 sessionFactory = configuration.buildSessionFactory(builder.build());
@@ -37,6 +40,14 @@ public class HibernateUtil {
 
     public static SessionFactory getSessionFactory() {
         return sessionFactory;
+    }
+
+    public static Session getSession() {
+        if (sessionFactory.getCurrentSession() != null) {
+            return sessionFactory.getCurrentSession();
+        } else {
+            return sessionFactory.openSession();
+        }
     }
 
     public static void shutdown() {

@@ -22,5 +22,6 @@ public interface UserDAO {
     public User update(User user) throws SQLException;
     public boolean remove(User user) throws SQLException;
     public User findById(int id) throws SQLException;
+    public boolean isConnected() throws SQLException;
     
 }
