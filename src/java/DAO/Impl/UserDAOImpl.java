@@ -35,7 +35,6 @@ public class UserDAOImpl implements UserDAO {
     public List getAll() throws SQLException {
         session = HibernateUtil.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(User.class);
-        session.close();
         return cr.list();
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
@@ -65,33 +64,15 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User create(User user) throws SQLException {
-        /*
-        Transaction tx;
- try {
-     tx = sess.beginTransaction();
-     //do some work
-     ...
-     tx.commit();
- }
- catch (Exception e) {
-     if (tx!=null) tx.rollback();
-     throw e;
- }
- finally {
-     sess.close();
- }*/
         Transaction tx = null;
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             tx = session.beginTransaction();
-            java.sql.Date timeNow = new Date(Calendar.getInstance().getTimeInMillis());
-            user.setName("Bako");
-            user.setSurname("Akzhol");
-            user.setCreate_date(timeNow);
-            user.setUpdate_date(timeNow);
-            user.setModer_id(2);
+            user.setCreate_date(new Date(Calendar.getInstance().getTimeInMillis()));
+            user.setUpdate_date(new Date(Calendar.getInstance().getTimeInMillis()));
             session.save(user);
             tx.commit();
+            user = findByEmail(user.getEmail());
         } catch (Exception e) {
             if (tx != null) {
                 tx.rollback();
@@ -105,23 +86,85 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public User update(User user) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Transaction tx = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            user.setCreate_date(new Date(Calendar.getInstance().getTimeInMillis()));
+            user.setUpdate_date(new Date(Calendar.getInstance().getTimeInMillis()));
+            session.saveOrUpdate(user);
+            tx.commit();
+            user = findByEmail(user.getEmail());
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+        return user;
     }
 
     @Override
     public boolean remove(User user) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Transaction tx = null;
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            tx = session.beginTransaction();
+            session.delete(user);
+            tx.commit();
+        } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            throw e;
+        } finally {
+            session.close();
+        }
+        return true;
+    }
+
+    @Override
+    public User findById(String id) throws SQLException {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            User user = (User) session.get(User.class, Integer.parseInt(id));
+            if (user == null) {
+                throw new NullPointerException("404!User not found");
+            } else {
+                return user;
+            }
+        } catch (NumberFormatException e) {
+            throw new NumberFormatException("Incorrect id");
+        }
     }
 
     @Override
     public User findById(int id) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        session = HibernateUtil.getSessionFactory().openSession();
+        User user = (User) session.get(User.class, id);
+
+        if (user == null) {
+            throw new NullPointerException("404!User not found");
+        } else {
+            return user;
+        }
+
     }
 
     @Override
-    public boolean isConnected() throws SQLException {
-        return HibernateUtil.getSessionFactory().openSession().isConnected();
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public User findByEmail(String user_email) throws SQLException {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Criteria cr = session.createCriteria(User.class);
+        cr.add(Restrictions.eq("email", user_email).ignoreCase());
+        cr.setMaxResults(1);
+        cr.setFirstResult(0);
+        if (!cr.list().isEmpty()) {
+            System.out.println("before converts");
+            return (User) cr.list().get(0);
+        }
+        return null;
     }
 
 }
