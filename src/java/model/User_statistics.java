@@ -19,6 +19,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name="user_statistics")
 public class User_statistics {
+    @Id
     @Column(name="user_id")
     int user_id;
     

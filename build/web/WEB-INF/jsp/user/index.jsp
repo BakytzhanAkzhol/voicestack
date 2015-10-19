@@ -11,6 +11,7 @@
     }
 </style>
 <div class="container">
+    <h3>Administration: User list</h3>
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
             <table class="table table-bordered table-striped table-responsive table-condensed">

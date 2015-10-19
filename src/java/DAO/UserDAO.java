@@ -16,7 +16,6 @@ import model.User;
  */
 public interface UserDAO {
     public List getAll() throws SQLException;
-    public User registrate(User user) throws SQLException;
     public User authority(User user)throws SQLException;
     public User create(User user)throws SQLException;
     public User update(User user) throws SQLException;

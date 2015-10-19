@@ -39,11 +39,6 @@ public class UserDAOImpl implements UserDAO {
 //        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public User registrate(User user) throws SQLException {
-
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public User authority(User user) throws SQLException {
