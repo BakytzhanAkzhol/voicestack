@@ -9,48 +9,47 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@include file="../../layout/header.jsp" %>
-${list}
 <div class="container">
-     <a href="<%=request.getContextPath()%>/user/index.htm" class="btn btn-default">< Back to Home</a>
+     <a href="<%=request.getContextPath()%>/question/index.htm" class="btn btn-default">< Back to Home</a>
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
-            <a href="<%=request.getContextPath()%>/user/${user.id}/update.htm" class="btn btn-primary pull-left">Update</a>
-             <form:form method="POST" action="${root_link}/user/${user.id}/remove.htm">
-                 <button type="submit" class="btn btn-danger pull-right center-block">Remove user</button>
+            <a href="<%=request.getContextPath()%>/question/${element.id}/update.htm" class="btn btn-primary pull-left">Update</a>
+             <form:form method="POST" action="${root_link}/question/${element.id}/remove.htm">
+                 <button type="submit" class="btn btn-danger pull-right center-block">Remove question</button>
              </form:form>
             <table class="table table-bordered table-striped">
                 <tbody>
                     <tr>
                         <td>ID</td>
-                        <td>${user.id}</td>
+                        <td>${element.id}</td>
                     </tr>
                     <tr>
-                        <td>Name</td>
-                        <td>${user.name}</td>
+                        <td>User</td>
+                        <td>${element.user_id}</td>
                     </tr>
                     <tr>
-                        <td>Surname</td>
-                        <td>${user.surname}</td>
+                        <td>Category</td>
+                        <td>${element.category_id}</td>
                     </tr>
                     <tr>
-                        <td>Email</td>
-                        <td>${user.email}</td>
+                        <td>Record</td>
+                        <td>${element.record_id}</td>
                     </tr>
                     <tr>
-                        <td>Password_hash</td>
-                        <td>${user.password_hash}</td>
+                        <td>Content</td>
+                        <td>${element.content}</td>
                     </tr>
                     <tr>
                         <td>Create date</td>
-                        <td>${user.create_date}</td>
+                        <td>${element.create_date}</td>
                     </tr>
                     <tr>
                         <td>Update date</td>
-                        <td>${user.update_date}</td>
+                        <td>${element.update_date}</td>
                     </tr>
                     <tr>
-                        <td>Moderator id</td>
-                        <td><a href="<%=request.getContextPath()%>/user/${user.moder_id}/view.htm">${user.moder_id}</a></td>
+                        <td>Status</td>
+                        <td>${element.status}</td>
                     </tr>
                 </tbody>
             </table>

@@ -9,18 +9,13 @@ import DAO.UserDAO;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.List;
 import model.User;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.SessionException;
 import util.HibernateUtil;
 
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
-import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Restrictions;
 
 /**
@@ -45,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
         session = HibernateUtil.getSessionFactory().openSession();
         Criteria cr = session.createCriteria(User.class);
         cr.add(Restrictions.eq("email", user.getEmail()).ignoreCase());
-        cr.add(Restrictions.eq("password_hash", user.getPassword_hash()).ignoreCase());
+        cr.add(Restrictions.eq("password_hash", user.md5(user.getPassword_hash())).ignoreCase());
         cr.setMaxResults(1);
         cr.setFirstResult(0);
         if (!cr.list().isEmpty()) {
@@ -63,6 +58,7 @@ public class UserDAOImpl implements UserDAO {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             tx = session.beginTransaction();
+            user.setPassword_hash(user.md5(user.getPassword_hash()));
             user.setCreate_date(new Date(Calendar.getInstance().getTimeInMillis()));
             user.setUpdate_date(new Date(Calendar.getInstance().getTimeInMillis()));
             session.save(user);

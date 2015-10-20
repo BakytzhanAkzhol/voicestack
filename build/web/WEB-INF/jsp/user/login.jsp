@@ -11,7 +11,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
-            <form:form method="POST" action="loginSubmit.htm" class="form-horizontal" modelAttribute="login">
+            <form:form method="POST" action="login.htm" class="form-horizontal" modelAttribute="login">
 
                 <fieldset>
                     <legend>Sign in </legend>
@@ -29,7 +29,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
-                                    <button type="submit" class="btn btn-primary">Sign in</button>
+                                    <button type="submit" class="btn btn-primary">Sign in</button> or <a href="registrate.htm" class="btn btn-success">Registrate</a>
                                 </div>
                             </div>
                         </div>

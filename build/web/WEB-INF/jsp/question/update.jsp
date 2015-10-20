@@ -12,25 +12,29 @@
 <%@include file="../../layout/header.jsp" %>
 ${list}
 <div class="container">
-     <a href="<%=request.getContextPath()%>/user/index.htm" class="btn btn-default">< Back to Home</a>
+     <a href="<%=request.getContextPath()%>/question/index.htm" class="btn btn-default">< Back to Home</a>
      
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
-            <h4>Update user: <b>${user.email}</b></h4><br>
+            <h4>Update question: <b>${element.id}</b></h4><br>
             <table class="table table-bordered table-striped">
                 <tbody>
-                    <form:form method="POST" action="${root_link}/user/${user.id}/update.htm" class="form-horizontal" modelAttribute="user">
+                    <form:form method="POST" action="${root_link}/question/${element.id}/update.htm" class="form-horizontal" modelAttribute="element">
                         <tr>
-                            <td>Name</td>
-                            <td><form:input path="name"  class="form-control" placeholder="name"  /></td>
+                            <td>Category</td>
+                            <td><form:input path="category_id"  class="form-control" placeholder="Category"  /></td>
                         </tr>
                         <tr>
-                            <td>Surname</td>
-                            <td><form:input path="surname"  class="form-control" placeholder="Surname"  /></td>
+                            <td>Record</td>
+                            <td><form:input path="record_id"  class="form-control" placeholder="Record"  /></td>
                         </tr>
                         <tr>
-                            <td>Email</td>
-                            <td><form:input path="email"  class="form-control" placeholder="Email"  /></td>
+                            <td>Status</td>
+                            <td><form:input path="status"  class="form-control" placeholder="Email"  /></td>
+                        </tr>
+                        <tr>
+                            <td>Content</td>
+                            <td><form:textarea path="content"  class="form-control" placeholder="Email"  /></td>
                         </tr>
                     <button type="submit" class="btn btn-success">Save</button>
                     </form:form>

@@ -17,6 +17,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
 import java.util.logging.*;
 import javax.persistence.*;
+import org.apache.commons.codec.digest.DigestUtils;
 /**
  *
  * @author bako
@@ -62,17 +63,8 @@ public class User implements Serializable{
         this.update_date=new java.sql.Date(Calendar.getInstance().getTime().getTime());
         this.moder_id=20;
     }
-    public String md5(String text){
-            
-        MessageDigest m;
-        try {
-            m = MessageDigest.getInstance("MD5");
-            m.update(text.getBytes(),0,text.length());
-        return new BigInteger(1,m.digest()).toString(16);
-        } catch (NoSuchAlgorithmException ex) {
-            Logger.getLogger(User.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return null;
+    public String md5(String str){
+        return DigestUtils.md5Hex(str);
     }
     
     public int getId() {

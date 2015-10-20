@@ -3,11 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/jsp/user/registrate.jsp</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/jsp/user/fail.jsp</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/jsp/user/update.jsp</file>
             <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/jsp/user/login.jsp</file>
-            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/controller/MainController.java</file>
-            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/dispatcher-servlet.xml</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/jsp/user/view.jsp</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/controller/UserController.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/DAO/Impl/QuestionDAOImpl.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/DAO/Impl/UserDAOImpl.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/jsp/user/index.jsp</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/DAO/QuestionDAO.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/web/WEB-INF/jsp/user/registrate.jsp</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/model/User_statistics.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/DAO/UserDAO.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/model/User.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/controller/QuestionController.java</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/hibernate.cfg.xml</file>
+            <file>file:/C:/Users/bako/Documents/NetBeansProjects/VoiceStack/src/java/model/Question.java</file>
         </group>
     </open-files>
 </project-private>

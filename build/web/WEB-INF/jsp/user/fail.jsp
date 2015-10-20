@@ -8,7 +8,7 @@ ${list}
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
-            Try, again
+            Try, again ${Password}
         </div>
     </div>    
 </div>

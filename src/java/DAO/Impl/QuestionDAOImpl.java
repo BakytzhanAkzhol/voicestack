@@ -60,10 +60,11 @@ public class QuestionDAOImpl implements QuestionDAO {
         session = HibernateUtil.getSessionFactory().openSession();
         try {
             tx = session.beginTransaction();
-            question.setCreate_date(new Date(Calendar.getInstance().getTimeInMillis()));
+            question.setCreate_date(question.getCreate_date());
             question.setUpdate_date(new Date(Calendar.getInstance().getTimeInMillis()));
             session.saveOrUpdate(question);
             tx.commit();
+            System.out.println("SaveOrUpdate");
 //            question = findByEmail(user.getEmail());
         } catch (Exception e) {
             if (tx != null) {

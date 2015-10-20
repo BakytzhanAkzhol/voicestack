@@ -10,6 +10,9 @@ import DAO.UserDAO;
 import com.mysql.jdbc.SQLError;
 import java.sql.SQLException;
 import java.util.Collection;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 import model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +30,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class UserController {
 
+    private final String SESSION_USER = "userSession";
     UserController mainController;
 
     public UserController() {
@@ -37,35 +41,46 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/login.htm", method = RequestMethod.GET)
-    public ModelAndView login(Model model) throws SQLException {
+    public ModelAndView login(Model model,HttpSession session) throws SQLException {
+        if(session.getAttribute(SESSION_USER)!=null){
+            return new ModelAndView("redirect:/user/index.htm");
+        }
         model.addAttribute("login", new User());
         ModelAndView modul = new ModelAndView("user/login");
         return modul;
     }
 
     @RequestMapping(value = "/user/login.htm", method = RequestMethod.POST)
-    public ModelAndView loginSubmit(@ModelAttribute("login") User user) throws SQLException {
+    public ModelAndView loginSubmit(
+            @ModelAttribute("login") User user,
+            HttpSession session
+            ) throws SQLException {
 //        model.addAttribute("login", new User()); 
-        ModelAndView model;
+        ModelAndView model=null;
         UserDAOImpl modul = new UserDAOImpl();
         User userAuth = modul.authority(user);
         if (userAuth != null) {
-            model = new ModelAndView("user/check");
-            model.addObject("user", userAuth);
+            session.setAttribute(SESSION_USER, user);
+            return new ModelAndView("redirect:/user/index.htm");
         } else {
             model = new ModelAndView("user/fail");
+            model.addObject("Password",user.md5(user.getPassword_hash()));
             return model;
         }
-        return model;
     }
 
     @RequestMapping("/user/index.htm")
-    public ModelAndView list(Model model) throws SQLException {
-        ModelAndView mv;
-        mv = new ModelAndView("user/index");
-        UserDAO modul = new UserDAOImpl();
-        mv.addObject("list", modul.getAll());
-        return mv;
+    public ModelAndView list(Model model, HttpServletRequest request) throws SQLException {
+
+        if (request.getSession().getAttribute(SESSION_USER) == null) {
+                return new ModelAndView("redirect:login.htm");
+        } else {
+            ModelAndView mv = new ModelAndView("user/index");
+            UserDAO modul = new UserDAOImpl();
+            mv.addObject(SESSION_USER,(User)request.getSession().getAttribute(SESSION_USER));
+            mv.addObject("list", modul.getAll());
+            return mv;
+        }
     }
 
     @RequestMapping(value = "/user/registrate.htm", method = RequestMethod.GET)
@@ -78,7 +93,7 @@ public class UserController {
     public String registrate2(@ModelAttribute("registration") User user) throws SQLException {
         UserDAOImpl modul = new UserDAOImpl();
         user = modul.create(user);
-        return "redirect:/user/" + user.getId() + "/view";
+        return "redirect:/user/" + user.getId() + "/view.htm";
     }
 
     @RequestMapping(value = "/user/{id}/view.htm", method = RequestMethod.GET)

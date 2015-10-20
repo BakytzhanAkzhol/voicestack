@@ -5,20 +5,16 @@
  */
 package controller;
 
-import DAO.Impl.UserDAOImpl;
-import DAO.UserDAO;
-import com.mysql.jdbc.SQLError;
+import DAO.Impl.*;
 import java.sql.SQLException;
-import java.util.Collection;
-import model.User;
+import model.*;
+import org.hibernate.Criteria;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import util.HibernateUtil;
 
 /**
  *
@@ -36,77 +32,61 @@ public class QuestionController {
         this.mainController = mainController;
     }
 
-    @RequestMapping(value = "/user/login.htm", method = RequestMethod.POST)
-    public ModelAndView loginSubmit(@ModelAttribute("login") User user) throws SQLException {
-//        model.addAttribute("login", new User()); 
-        ModelAndView model;
-        UserDAOImpl modul = new UserDAOImpl();
-        User userAuth = modul.authority(user);
-        if (userAuth != null) {
-            model = new ModelAndView("user/check");
-            model.addObject("user", userAuth);
-        } else {
-            model = new ModelAndView("user/fail");
-            return model;
-        }
-        return model;
-    }
-
     @RequestMapping("/question/index.htm")
     public ModelAndView index(Model model) throws SQLException {
         ModelAndView mv;
-        mv = new ModelAndView("user/index");
-        UserDAO modul = new UserDAOImpl();
-        mv.addObject("list", modul.getAll());
+        mv = new ModelAndView("question/index");
+        QuestionDAOImpl modul = new QuestionDAOImpl();
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Criteria cr = session.createCriteria(Question.class);
+        mv.addObject("list", cr.list());
         return mv;
     }
 
     @RequestMapping(value = "/question/create.htm", method = RequestMethod.GET)
     public String registrate(Model model) throws SQLException {
-        model.addAttribute("registration", new User());
-        return "user/registrate";
+        model.addAttribute("create", new Question());
+        return "question/create";
     }
 
     @RequestMapping(value = "/question/create.htm", method = RequestMethod.POST)
-    public String registrate2(@ModelAttribute("registration") User user) throws SQLException {
-        UserDAOImpl modul = new UserDAOImpl();
-        user = modul.create(user);
-        return "redirect:/user/" + user.getId() + "/view";
+    public String registrate2(@ModelAttribute("create") Question question) throws SQLException {
+        QuestionDAOImpl modul = new QuestionDAOImpl();
+        question = modul.create(question);
+        return "redirect:/question/" + question.getId() + "/view";
     }
 
     @RequestMapping(value = "/question/{id}/view.htm", method = RequestMethod.GET)
-    public ModelAndView viewUser(@PathVariable(value = "id") String id) throws SQLException {
-        UserDAOImpl modul = new UserDAOImpl();
-        User user;
-        user = modul.findById(id);
-        ModelAndView model = new ModelAndView("user/view");
-        model.addObject("user", user);
+    public ModelAndView viewQuestion(@PathVariable(value = "id") String id) throws SQLException {
+        QuestionDAOImpl modul = new QuestionDAOImpl();
+        Question question = modul.findById(id);
+        ModelAndView model = new ModelAndView("question/view");
+        model.addObject("element", question);
         model.addObject("root_link", "http://localhost:8084/VoiceStack/");
         return model;
     }
 
     @RequestMapping(value = "/question/{id}/update.htm", method = RequestMethod.GET)
-    public ModelAndView updateUser(@PathVariable(value = "id") String id) throws SQLException {
-        UserDAOImpl modul = new UserDAOImpl();
-        User user;
-        user = modul.findById(id);
-        ModelAndView model = new ModelAndView("user/update");
+    public ModelAndView updateQuestion(@PathVariable(value = "id") String id) throws SQLException {
+        QuestionDAOImpl modul = new QuestionDAOImpl();
+        Question question = modul.findById(id);
+        ModelAndView model = new ModelAndView("question/update");
         model.addObject("root_link", "http://localhost:8084/VoiceStack/");
-        model.addObject("user", user);
+        model.addObject("element", question);
         return model;
     }
 
     @RequestMapping(value = "/question/{id}/update.htm", method = RequestMethod.POST)
-    public String updateUserSubmit(@PathVariable(value = "id") String id, @ModelAttribute("user") User user) throws SQLException {
-        UserDAOImpl modul = new UserDAOImpl();
-        User user2 = modul.update(user);
-        return "redirect:/user/" + user2.getId() + "/view.htm";
+    public String updateQuestionSubmit(@PathVariable(value = "id") String id, @ModelAttribute("question") Question question) throws SQLException {
+        QuestionDAOImpl modul = new QuestionDAOImpl();
+        Question question2 = modul.update(question);
+        return "redirect:/question/" + question2.getId() + "/view.htm";
     }
 
     @RequestMapping(value = "/question/{id}/remove.htm", method = RequestMethod.POST)
-    public String removeUser(@PathVariable(value = "id") String id, @ModelAttribute("registration") User user) throws SQLException {
+    public String removeQuestion(@PathVariable(value = "id") String id, @ModelAttribute("registration") User user) throws SQLException {
         UserDAOImpl modul = new UserDAOImpl();
         modul.remove(user);
-        return "redirect:/user/index.htm";
+        return "redirect:/question/index.htm";
     }
 }

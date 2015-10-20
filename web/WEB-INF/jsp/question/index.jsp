@@ -18,19 +18,27 @@
                 <thead>
 
                 <th>ID</th>
-                <th>Name</th>
-                <th>Surname</th>
-                <th>Email</th>
+                <th>User</th>
+                <th>Category</th>
+                <th>Record</th>
+                <th>Content</th>
+                <th>Create date</th>
+                <th>Update date</th>
+                <th>Status</th>
                 <th></th>
                 </thead>
                 <tbody>
                     <c:forEach items="${list}" var="element"> 
                         <tr>
                             <td>${element.id}</td>
-                            <td>${element.name}</td>
-                            <td>${element.surname}</td>
-                            <td>${element.email}</td>
-                            <td> <a href="<%=request.getContextPath()%>/user/${element.id}/view.htm" class="btn btn-primary btn-sm">View</a>
+                            <td>${element.user_id}</td>
+                            <td>${element.category_id}</td>
+                            <td>${element.record_id}</td>
+                            <td>${element.content}</td>
+                            <td>${element.create_date}</td>
+                            <td>${element.update_date}</td>
+                            <td>${element.status}</td>
+                            <td> <a href="<%=request.getContextPath()%>/question/${element.id}/view.htm" class="btn btn-primary btn-sm">View</a>
             </td>
                         </tr>
                     </c:forEach>
