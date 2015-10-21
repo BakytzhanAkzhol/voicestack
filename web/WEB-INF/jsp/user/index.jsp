@@ -1,3 +1,4 @@
+<%@page import="model.User"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@include file="../../layout/header.jsp" %>
@@ -12,6 +13,7 @@
 </style>
 <div class="container">
     <h3>Administration: User list</h3>
+    <h4>Здраствуйте,<%= user.getEmail()%> </h4>
     <div class="row">
         <div class="col-md-6 col-md-offset-2">
             <table class="table table-bordered table-striped table-responsive table-condensed">

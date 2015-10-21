@@ -41,8 +41,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/login.htm", method = RequestMethod.GET)
-    public ModelAndView login(Model model,HttpSession session) throws SQLException {
-        if(session.getAttribute(SESSION_USER)!=null){
+    public ModelAndView login(Model model, HttpSession session) throws SQLException {
+        if (session.getAttribute(SESSION_USER) != null) {
             return new ModelAndView("redirect:/user/index.htm");
         }
         model.addAttribute("login", new User());
@@ -54,9 +54,9 @@ public class UserController {
     public ModelAndView loginSubmit(
             @ModelAttribute("login") User user,
             HttpSession session
-            ) throws SQLException {
+    ) throws SQLException {
 //        model.addAttribute("login", new User()); 
-        ModelAndView model=null;
+        ModelAndView model = null;
         UserDAOImpl modul = new UserDAOImpl();
         User userAuth = modul.authority(user);
         if (userAuth != null) {
@@ -64,20 +64,20 @@ public class UserController {
             return new ModelAndView("redirect:/user/index.htm");
         } else {
             model = new ModelAndView("user/fail");
-            model.addObject("Password",user.md5(user.getPassword_hash()));
+            model.addObject("Password", user.md5(user.getPassword_hash()));
             return model;
         }
     }
 
     @RequestMapping("/user/index.htm")
-    public ModelAndView list(Model model, HttpServletRequest request) throws SQLException {
+    public ModelAndView index(Model model, HttpServletRequest request) throws SQLException {
 
         if (request.getSession().getAttribute(SESSION_USER) == null) {
-                return new ModelAndView("redirect:login.htm");
+            return new ModelAndView("redirect:login.htm");
         } else {
             ModelAndView mv = new ModelAndView("user/index");
             UserDAO modul = new UserDAOImpl();
-            mv.addObject(SESSION_USER,(User)request.getSession().getAttribute(SESSION_USER));
+            mv.addObject(SESSION_USER, (User) request.getSession().getAttribute(SESSION_USER));
             mv.addObject("list", modul.getAll());
             return mv;
         }
@@ -130,5 +130,11 @@ public class UserController {
         UserDAOImpl modul = new UserDAOImpl();
         modul.remove(user);
         return "redirect:/user/index.htm";
+    }
+
+    @RequestMapping(value = "/user/logout.htm", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        session.removeAttribute(SESSION_USER);
+        return "redirect:/user/login.htm";
     }
 }

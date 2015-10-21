@@ -44,10 +44,6 @@ ${list}
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="inputPassword" class="col-lg-2 control-label">Repeat password</label>
-                            <div class="col-lg-10">
-                                <form:password path="password_hash"  class="form-control" placeholder="Repeat password"  />
-                            </div>
                             <div class="form-group">
                                 <div class="col-lg-10 col-lg-offset-2">
                                     <button type="submit" class="btn btn-primary">Sign in</button>
